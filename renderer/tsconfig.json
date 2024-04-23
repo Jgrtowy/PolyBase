@@ -1,11 +1,12 @@
 {
-	"extends": "../tsconfig.json",
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules"],
+    "extends": "../tsconfig.json",
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"],
     "compilerOptions": {
         "paths": {
             "@/components/*": ["./components/*"],
-            "@/lib/utils/*": ["./components/utils/*"], 
+            "@/lib/utils/*": ["./components/utils/*"],
+            "@/types": ["../main/connection/types.ts"]
         }
     }
 }

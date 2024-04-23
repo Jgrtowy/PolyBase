@@ -7,30 +7,53 @@ import initializeIpc from "./initializeIpc";
 const isProd = process.env.NODE_ENV === "production";
 
 if (isProd) {
-	serve({ directory: "app" });
+    serve({ directory: "app" });
 } else {
-	app.setPath("userData", `${app.getPath("userData")} (development)`);
+    app.setPath("userData", `${app.getPath("userData")} (development)`);
 }
 (async () => {
-	await app.whenReady();
+    await app.whenReady();
 
-	const mainWindow = createWindow("main", {
-		width: 1000,
-		height: 600,
-		webPreferences: {
-			preload: path.join(__dirname, "preload.js"),
-		},
-	});
-	initializeIpc();
-	if (isProd) {
-		await mainWindow.loadURL("app://./home");
-	} else {
-		const port = process.argv[2];
-		await mainWindow.loadURL(`http://localhost:${port}/home`);
-		mainWindow.webContents.openDevTools();
-	}
+    const mainWindow = createWindow("main", {
+        width: 1280,
+        height: 720,
+        minWidth: 1280,
+        minHeight: 720,
+        movable: true,
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+        },
+        frame: false,
+        icon: path.join(__dirname, "../resources/icon.ico"),
+    });
+
+    initializeIpc();
+
+    ipcMain.on("window", async (event, arg: string) => {
+        if (arg === "quit") {
+            mainWindow.close();
+        }
+        if (arg === "minimize") {
+            mainWindow.minimize();
+        }
+        if (arg === "maximize") {
+            if (mainWindow.isMaximized()) {
+                mainWindow.unmaximize();
+            } else {
+                mainWindow.maximize();
+            }
+        }
+    });
+
+    if (isProd) {
+        await mainWindow.loadURL("app://./home");
+    } else {
+        const port = process.argv[2];
+        await mainWindow.loadURL(`http://localhost:${port}/home`);
+        mainWindow.webContents.openDevTools();
+    }
 })();
 
 app.on("window-all-closed", () => {
-	app.quit();
+    app.quit();
 });

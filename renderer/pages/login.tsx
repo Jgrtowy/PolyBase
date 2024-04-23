@@ -1,10 +1,10 @@
+import { useSession } from "@/components/providers/SessionProvider";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/Dialog";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form";
 import { Input } from "@/components/ui/Input";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/InputOTP";
-import { Label } from "@/components/ui/Label";
 import { toast } from "@/components/ui/UseToast";
 import supabase from "@/lib/utils/supabase";
 import { faDiscord, faGithub, faGitlab, faGoogle } from "@fortawesome/free-brands-svg-icons";
@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import type { Provider } from "@supabase/supabase-js";
-import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -24,7 +23,7 @@ export default function login() {
         await supabase.auth.signInWithOAuth({
             provider,
             options: {
-                redirectTo: "http://localhost:8888/home",
+                redirectTo: process.env.NODE_ENV !== "production" ? "http://localhost:8888/home" : "app://.home/",
             },
         });
     };
@@ -81,7 +80,7 @@ export default function login() {
     };
 
     return (
-        <div className="dark w-screen h-screen flex justify-center items-center">
+        <div className="dark flex justify-center items-center">
             <Card>
                 <CardHeader>
                     <CardTitle>Sign in to Polybase</CardTitle>

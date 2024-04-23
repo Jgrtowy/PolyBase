@@ -1,5 +1,5 @@
+import type { IConnect } from "@/types";
 import React, { useContext, useEffect, useState } from "react";
-import type { IConnect } from "../pages/home";
 import { useSession } from "./providers/SessionProvider";
 import { Button } from "./ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/Card";

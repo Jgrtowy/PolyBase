@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, Plus } from "lucide-react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -45,7 +46,7 @@ export default function AddDatabase() {
     });
 
     const [dialogOpen, setDialogOpen] = useState(false);
-
+    const router = useRouter();
     const onSubmit = async (data: z.infer<typeof FormSchema>) => {
         const dialect = data.connectionString.split(":" || "+")[0];
 
@@ -75,7 +76,7 @@ export default function AddDatabase() {
     return (
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger>
-                <Button variant="outline" className="border-white flex items-center gap-2">
+                <Button variant="outline" className="dark:border-white flex items-center gap-2">
                     <Plus />
                     Add Database
                 </Button>
@@ -103,7 +104,7 @@ export default function AddDatabase() {
                                 name="customName"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Connection String (optional)</FormLabel>
+                                        <FormLabel>Custom name (optional)</FormLabel>
                                         <FormControl>
                                             <Input {...field} />
                                         </FormControl>
