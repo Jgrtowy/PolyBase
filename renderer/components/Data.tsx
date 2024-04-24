@@ -34,7 +34,7 @@ export default function Data<TData, TValue>({ columns, data }: DataTableProps<TD
                     Next
                 </Button>
             </div>
-            <div className="flex flex-col border rounded-md">
+            <div className="flex flex-col border rounded-md bg-background">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

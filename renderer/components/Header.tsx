@@ -37,7 +37,7 @@ export default function Header() {
                             </Avatar>
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="border-0 bg-transparent shadow-none p-0">
+                    <DropdownMenuContent className="border-0 dark:bg-[#121212] bg-white shadow-none p-0">
                         <DropdownMenuLabel className="m-0 p-0">
                             <Button variant="ghost" onClick={() => supabase.auth.signOut()} className="w-full hover:text-red-500 text-red-500 m-0 text-lg gap-2">
                                 <LogOut />
@@ -55,7 +55,7 @@ export default function Header() {
                         <span className="sr-only">Toggle theme</span>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="border-0 bg-transparent shadow-none">
+                <DropdownMenuContent align="end" className="border-0 p-0 dark:bg-[#121212] bg-white shadow-none">
                     <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
